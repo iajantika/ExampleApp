@@ -4,12 +4,17 @@ import { Injectable } from '@angular/core';
 })
 export class UserServiceService {
 
-  constructor() { }
   private loginStatusKey = 'isLoggedIn';
 
+  constructor() { }
+
   isLoggedIn(): boolean {
-    return localStorage.getItem(this.loginStatusKey) === 'true';
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem(this.loginStatusKey) === 'true';
+    }
+    return false;
   }
+
 
   addUser(user: any) {
     let users = this.getUsers();
@@ -22,10 +27,13 @@ export class UserServiceService {
     const users = localStorage.getItem('users');
     return users ? JSON.parse(users) : [];
   }
+
   clearUsers() {
     localStorage.removeItem('users');
   }
+
   logout() {
     localStorage.removeItem(this.loginStatusKey);
   }
 }
+

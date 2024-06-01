@@ -4,7 +4,7 @@
         <div class="col" *ngFor="let item of items; let i = index;">
             <div class="card" [style.background-color]="getCardColor(i)" style="width: 20rem;">
                 <div class="card-body">
-                    <h5 class="card-title">{{ item.name }}</h5>
+                    <h3 class="card-title"><b>{{ item.name | titlecase }}</b></h3>
                     <button class="btn btn-warning card-link" (click)="editItem(i)">Edit</button>
                     <button class="btn btn-danger card-link" (click)="deleteItem(i)">Delete</button>
                     <button class="btn btn-info card-link" (click)="moveToInProgress(i)">In Progress</button>
@@ -41,7 +41,7 @@
   </div>
 </div>
 
-    <div>
+    <div [style.margin-top]="(items.length || inProgressItems.length || completedItems.length) ? '1rem' : '0'">
         <span class="title-todo">Your todos</span>
         <span style="border: 1px solid black; border-radius: 5px; margin: 5px;"><button mat-icon-button
                 (click)="openDialog()">
