@@ -1,1 +1,24 @@
-<p>login works!</p>
+<!-- src/app/login/login.component.html -->
+<div class="login-container">
+    <div class="wrapper">
+        <div class="logo">
+            <img src="https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-latest-apple-logo-icon-gif-15.png" alt="">
+        </div>
+        <div class="text-center mt-4 name">
+            AJ
+        </div>
+    <form  class="p-3 mt-3" (ngSubmit)="onSubmit()">
+      <div class="form-field d-flex align-items-center">
+       <span class="far fa-user"></span>
+       <input type="text" id="name" [(ngModel)]="user.name" name="name" required>
+     </div>
+      <div class="form-field d-flex align-items-center">
+        <span class="fas fa-key"></span>
+        <input type="email" id="email" [(ngModel)]="user.email" name="email" required>
+      </div>
+      <button class="btn mt-3" type="submit">Login</button>
+    </form>
+    <div class="text-center fs-6">
+       <a href="#"><span class="text-signUP">Sign up</span></a>
+    </div>
+</div>
