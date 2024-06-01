@@ -14,12 +14,12 @@
     </div>
    
     <div>
-    <h2 *ngIf="inProgressItems.length">In Progress</h2>
+    <h2 *ngIf="inProgressItems.length" style="padding-top: 0.5rem">In Progress</h2>
   <div class="row">
     <div class="col" *ngFor="let item of inProgressItems; let i = index;">
       <div class="card" [style.background-color]="getCardColor(i)" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">{{ item.name }}</h5>
+          <h3 class="card-title"><b>{{ item.name }}</b></h3>
           <button class="btn btn-success card-link" (click)="moveToCompleted(i)">Move to Completed</button>
           <button class="btn btn-danger card-link" (click)="deleteInProgressItem(i)">Delete</button>
         </div>
@@ -29,12 +29,12 @@
 </div>
 
 <div>
-  <h2 *ngIf="completedItems.length">Completed</h2>
+  <h2 *ngIf="completedItems.length" style="margin-top: 0.5rem">Completed</h2>
   <div class="row">
     <div class="col" *ngFor="let item of completedItems; let i = index;">
       <div class="card" [style.background-color]="getCardColor(i)" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">{{ item.name }}</h5>
+          <h3 class="card-title"><b>{{ item.name }}</b></h3>
         </div>
       </div>
     </div>
