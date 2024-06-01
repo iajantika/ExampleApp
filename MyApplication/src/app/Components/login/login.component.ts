@@ -17,7 +17,11 @@ export class LoginComponent {
   constructor(private router: Router, private userService: UserServiceService) {}
 
   onSubmit() {
-    this.userService.addUser(this.user);
-    this.router.navigate(['/main/home']);
+    if (this.user.name && this.user.email) {
+      this.userService.addUser(this.user);
+      this.router.navigate(['/main/home']);
+    } else {
+      console.log('Name and Email are required');
+    }
   }
 }

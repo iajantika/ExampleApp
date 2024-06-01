@@ -7,53 +7,94 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { TodoDialogComponent } from '../todo-dialog/todo-dialog.component';
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule, MatDialogModule, 
-    MatButtonModule, 
-    MatIconModule, 
-    MatInputModule, 
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
     MatFormFieldModule],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.scss'
 })
 export class TodoComponent {
-items:{name:string}[]=[];
-currentItemIndex:number = -1;
-currentItemName:string = '';
-isEditing:boolean = false;
+  items: { name: string }[] = [];
+  currentItemIndex: number = -1;
+  currentItemName: string = '';
+  isEditing: boolean = false;
+  inProgressItems: { name: string }[] = [];
+  completedItems: { name: string }[] = [];
 
-constructor(private service:TodoService){}
+  colors: string[] = ['#FFCDD2', '#C8E6C9', '#BBDEFB', '#FFF9C4', '#D1C4E9'];
 
-ngOnInit():void{
-  this.service.items$.subscribe((items)=> this.items = items);
-}
-
-addItem():void{
-  if(this.isEditing){
-    this.service.udpateItems(this.currentItemIndex, this.currentItemName);
+  constructor(private service: TodoService, public dialog: MatDialog) { 
   }
-  else{
-    this.service.addItems({name:this.currentItemName})
+
+  ngOnInit(): void {
+    this.service.items$.subscribe((items) => this.items = items);
   }
-  this.resetForm();
-}
 
-editItem(index:number):void{
-this.currentItemIndex = index;
-this.currentItemName = this.items[index].name;
-this.isEditing = true;
-}
+  openDialog(item: any = null, index: number | null = null): void {
+    this.isEditing = !!item;
+    this.currentItemIndex = index !== null ? index : -1;
+    this.currentItemName = item ? item.name : '';
 
-deleteItem(index:number):void{
-  this.service.deleteItems(index)
-}
+    const dialogRef = this.dialog.open(TodoDialogComponent, {
+      width: '100%',
+      data: { name: this.currentItemName }
+    });
 
-resetForm(){
-this.currentItemIndex = -1;
-this.currentItemName = '';
-this.isEditing = false;
-}
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.currentItemName = result;
+        this.addItem();
+      }
+    });
+  }
+
+  addItem(): void {
+    if (this.isEditing) {
+      this.service.udpateItems(this.currentItemIndex, this.currentItemName);
+    } else {
+      this.service.addItems({ name: this.currentItemName });
+    }
+    this.resetForm();
+  }
+
+  editItem(index: number): void {
+    this.openDialog(this.items[index], index);
+  }
+
+  deleteItem(index: number): void {
+    this.service.deleteItems(index);
+  }
+
+  resetForm(): void {
+    this.currentItemIndex = -1;
+    this.currentItemName = '';
+    this.isEditing = false;
+  }
+
+  getCardColor(index: number): string {
+    return this.colors[index % this.colors.length];
+  }
+
+  moveToInProgress(index: number): void {
+    const item = this.items.splice(index, 1)[0];
+    this.inProgressItems.push(item);
+
+  }
+
+  deleteInProgressItem(index: number): void {
+    this.inProgressItems.splice(index, 1);
+  }
+
+  moveToCompleted(index: number): void {
+    const item = this.inProgressItems.splice(index, 1)[0];
+    this.completedItems.push(item);
+  }
+
 }

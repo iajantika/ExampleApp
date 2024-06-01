@@ -10,11 +10,11 @@
     <form  class="p-3 mt-3" (ngSubmit)="onSubmit()">
       <div class="form-field d-flex align-items-center">
        <span class="far fa-user"></span>
-       <input type="text" id="name" [(ngModel)]="user.name" name="name" required>
+       <input type="text" id="name" placeholder="Enter your Full Name" [(ngModel)]="user.name" name="name" required>
      </div>
       <div class="form-field d-flex align-items-center">
         <span class="fas fa-key"></span>
-        <input type="email" id="email" [(ngModel)]="user.email" name="email" required>
+        <input type="email" id="email" placeholder="Enter your Email ID" [(ngModel)]="user.email" name="email" required>
       </div>
       <button class="btn mt-3" type="submit">Login</button>
     </form>

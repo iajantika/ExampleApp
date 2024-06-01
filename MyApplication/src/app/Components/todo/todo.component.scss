@@ -1,0 +1,73 @@
+.title-todo {
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    font-weight: bold;
+    color: #486177;
+}
+
+.plus-icon {
+    padding-top: 6px;
+    color: #486177;
+}
+
+.todo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%; // Adjust the max-width as needed
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+
+
+.add-todo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.title-todo {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.plus-icon {
+    font-size: 24px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.col {
+    flex: 1 1 18rem;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.title-todo {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.plus-icon {
+    font-size: 24px;
+}
