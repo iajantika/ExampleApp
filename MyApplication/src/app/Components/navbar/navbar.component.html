@@ -6,27 +6,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link active" aria-current="page" routerLink="/main/home">Home</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/main/about">About</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/main/todo">TO DO</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav> -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">AJ</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link" routerLink="/main/home" routerLinkActive="active">Home</a>
           </li>
@@ -39,5 +18,27 @@
         </ul>
       </div>
     </div>
+  </nav> -->
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/main/home">AJ</a>
+      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+        <a class="nav-link" routerLink="/main/home" routerLinkActive="active">Home</a>
+        <a class="nav-link" routerLink="/main/about" routerLinkActive="active">About</a>
+        <a class="nav-link" routerLink="/main/todo" routerLinkActive="active">TO DO</a>
+      </div>
+    </div>
   </nav>
-  
+
+  <style>
+    @media (max-width: 991.98px) {
+      .navbar-expand-lg .navbar-nav {
+        flex-direction: row !important;
+      }
+      .navbar-expand-lg .navbar-nav .nav-link {
+        padding-right: 1rem;
+        padding-left: 1rem;
+      }
+    }
+  </style>
