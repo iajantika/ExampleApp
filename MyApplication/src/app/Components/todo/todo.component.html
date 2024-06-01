@@ -1,1 +1,13 @@
-<h2>todo works!</h2>
+<h2>My Todo List</h2>
+<ul>
+    <li *ngFor="let item of items; let i=index;">
+        <span>{{item.name}}</span>
+        <button class="btn btn-warning" (click)="editItem(i)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteItem(i)">Delete</button>
+    </li>
+</ul>
+<h2> Create New To-Do</h2>
+<form (ngSubmit)="addItem()" #itemForm="ngForm">
+    <input type="text" id="name" name="name" [(ngModel)]="currentItemName" required>
+    <button type="submit" class="btn btn-primary">{{isEditing? 'Edit' : 'Add'}}</button>
+</form>
