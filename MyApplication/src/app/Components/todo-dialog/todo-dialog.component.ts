@@ -39,8 +39,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
     @media (max-width: 600px) {
-      width: 90%;
-      padding: 10px;
+      width: 100%;
     }
   }
     mat-form-field {
