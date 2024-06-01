@@ -31,19 +31,21 @@ import { MatInput, MatInputModule } from '@angular/material/input';
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    width: 100%; /* Set initial width to 100% */
-    max-width: 500px; 
+    width:500px;
     padding: 20px;
     border-radius: 10px;
     background-color: #f9f9f9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
     @media (max-width: 600px) {
-      width: 100%;
+      width: 350px;
     }
-  }
+}
     mat-form-field {
       width: 500px;
+      @media (max-width: 600px) {
+        width: 350px;
+      }
     }
     textarea {
       resize: vertical;
