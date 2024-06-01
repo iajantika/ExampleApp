@@ -18,6 +18,6 @@ export class LoginComponent {
 
   onSubmit() {
     this.userService.addUser(this.user);
-    this.router.navigate(['/main']);
+    this.router.navigate(['/main/home']);
   }
 }

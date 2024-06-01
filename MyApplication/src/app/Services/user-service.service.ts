@@ -8,7 +8,6 @@ export class UserServiceService {
   constructor() { }
   private loginStatusKey = 'isLoggedIn';
 
-
   isLoggedIn(): boolean {
     return localStorage.getItem(this.loginStatusKey) === 'true';
   }
@@ -24,7 +23,9 @@ export class UserServiceService {
     const users = localStorage.getItem('users');
     return users ? JSON.parse(users) : [];
   }
-
+  clearUsers() {
+    localStorage.removeItem('users');
+  }
   logout() {
     localStorage.removeItem(this.loginStatusKey);
   }

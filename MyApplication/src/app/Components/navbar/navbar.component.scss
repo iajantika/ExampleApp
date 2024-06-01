@@ -5,3 +5,15 @@
     border-radius: 50%;
     padding: 0 5px;
 }
+
+.navbar {
+    .navbar-nav .nav-link {
+      color: rgb(235, 165, 200);
+      cursor: pointer;
+      &.active {
+        font-weight: bold;
+        font-size: 20px;
+        color: #f6c25c;
+      }
+    }
+  }

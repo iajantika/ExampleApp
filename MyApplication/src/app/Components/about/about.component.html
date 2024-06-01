@@ -1,1 +1,14 @@
-<p>about works!</p>
+<div>
+    <h2 style="margin:1em">User LogIn List
+        <span *ngIf="users.length"><button class="btn btn-danger" (click)="clearAllUsers()">Clear All Users</button></span></h2>
+        <div class="row">
+        <div class="col" *ngFor="let user of users">
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><strong>Name:</strong> {{ user.name }}</h5>
+              <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+            </div>
+          </div>
+          </div>
+  </div>
+  </div>
