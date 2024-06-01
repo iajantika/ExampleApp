@@ -43,7 +43,7 @@ export class TodoComponent {
     this.currentItemName = item ? item.name : '';
 
     const dialogRef = this.dialog.open(TodoDialogComponent, {
-      width: '100%',
+      width: '500px',
       data: { name: this.currentItemName }
     });
 

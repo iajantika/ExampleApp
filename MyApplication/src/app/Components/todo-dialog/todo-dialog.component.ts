@@ -9,17 +9,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
   standalone: true,
   imports: [MatFormFieldModule, ReactiveFormsModule, FormsModule, MatInputModule, MatInput, MatFormField],
   template: `
-  <div style="display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 100%; // Adjust the max-width as needed
-  margin: 0 auto;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  background-color: #f9f9f9;">
+  <div class="dialog-container">
   <h1 mat-dialog-title>{{ data.name ? 'Edit' : 'Add' }} To-Do</h1>
   <div mat-dialog-content>
   <mat-form-field>
@@ -33,8 +23,22 @@ import { MatInput, MatInputModule } from '@angular/material/input';
   </div>
 `,
   styles: [`
+  .dialog-container {
+    position: relative; /* Ensure the container is positioned */
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width:500px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
     mat-form-field {
-      width: 100%;
+      width: 500px;
     }
     textarea {
       resize: vertical;
