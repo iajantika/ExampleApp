@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { TodoItem } from '../Interfaces/todo-item';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  private items: BehaviorSubject<{name: string}[]> = new BehaviorSubject<{name: string}[]>([]);
-  private inProgress: BehaviorSubject<{name: string}[]> = new BehaviorSubject<{name: string}[]>([]);
-  private completed: BehaviorSubject<{name: string}[]> = new BehaviorSubject<{name: string}[]>([]);
+  private items: BehaviorSubject<TodoItem[]> = new BehaviorSubject<TodoItem[]>([]);
+  private inProgress: BehaviorSubject<TodoItem[]> = new BehaviorSubject<TodoItem[]>([]);
+  private completed: BehaviorSubject<TodoItem[]> = new BehaviorSubject<TodoItem[]>([]);
 
-  public items$: Observable<{name: string}[]> = this.items.asObservable();
-  public inProgress$: Observable<{name: string}[]> = this.inProgress.asObservable();
-  public completed$: Observable<{name: string}[]> = this.completed.asObservable();
+  public items$: Observable<TodoItem[]> = this.items.asObservable();
+  public inProgress$: Observable<TodoItem[]> = this.inProgress.asObservable();
+  public completed$: Observable<TodoItem[]> = this.completed.asObservable();
 
   constructor() { 
     this.getItemsLocal();
@@ -19,21 +20,22 @@ export class TodoService {
     this.getCompletedLocal();
   }
 
-  getItems(): {name: string}[] {
+  getItems(): TodoItem[] {
     return this.items.getValue();
   }
 
-  getInProgressItems(): {name: string}[] {
+  getInProgressItems(): TodoItem[] {
     return this.inProgress.getValue();
   }
 
-  getCompletedItems(): {name: string}[] {
+  getCompletedItems(): TodoItem[] {
     return this.completed.getValue();
   }
 
   addItems(item: {name: string}): void {
     const currentItems = this.getItems();
-    currentItems.push(item);
+    const newItem: TodoItem = { name: item.name, created: new Date() };
+    currentItems.push(newItem);
     this.items.next(currentItems);
     this.saveLocal('items', currentItems);
   }
@@ -55,6 +57,7 @@ export class TodoService {
   moveToInProgress(index: number): void {
     const currentItems = this.getItems();
     const item = currentItems.splice(index, 1)[0];
+    item.inProgress = new Date();
     const currentInProgress = this.getInProgressItems();
     currentInProgress.push(item);
     this.items.next(currentItems);
@@ -66,6 +69,7 @@ export class TodoService {
   moveToCompleted(index: number): void {
     const currentInProgress = this.getInProgressItems();
     const item = currentInProgress.splice(index, 1)[0];
+    item.completed = new Date();
     const currentCompleted = this.getCompletedItems();
     currentCompleted.push(item);
     this.inProgress.next(currentInProgress);
@@ -74,7 +78,21 @@ export class TodoService {
     this.saveLocal('completed', currentCompleted);
   }
 
-  private saveLocal(key: string, items: {name: string}[]): void {
+  deleteInProgressItem(index: number): void {
+    const currentInProgress = this.getInProgressItems();
+    currentInProgress.splice(index, 1);
+    this.inProgress.next(currentInProgress);
+    this.saveLocal('inProgress', currentInProgress);
+  }
+
+  deleteCompletedItem(index: number): void {
+    const currentCompleted = this.getCompletedItems();
+    currentCompleted.splice(index, 1);
+    this.completed.next(currentCompleted);
+    this.saveLocal('completed', currentCompleted);
+  }
+
+  private saveLocal(key: string, items: TodoItem[]): void {
     localStorage.setItem(key, JSON.stringify(items));
   }
 
@@ -100,19 +118,5 @@ export class TodoService {
       const items = JSON.parse(allCompleted);
       this.completed.next(items);
     }
-  }
-
-  deleteInProgressItem(index: number): void {
-    const currentInProgress = this.getInProgressItems();
-    currentInProgress.splice(index, 1);
-    this.inProgress.next(currentInProgress);
-    this.saveLocal('inProgress', currentInProgress);
-  }
-
-  deleteCompletedItem(index: number): void {
-    const currentCompleted = this.getCompletedItems();
-    currentCompleted.splice(index, 1);
-    this.completed.next(currentCompleted);
-    this.saveLocal('completed', currentCompleted);
   }
 }

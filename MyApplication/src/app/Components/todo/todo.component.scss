@@ -6,8 +6,28 @@
 }
 
 .plus-icon {
-    padding-top: 7px;
-    color: #486177;
+    color: #EF2B7C;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.action-buttons{
+    margin: 0.5rem;
+}
+
+.check-action{
+  padding-top: 0.5rem;
+  color:rgb(48, 137, 48)
+}
+
+.timestamp{
+font-size: 10px;
+letter-spacing: 1px;
+}
+
+.button-cont{
+    display: flex;
+    justify-content: space-between;
 }
 
 .todo-container {
@@ -68,6 +88,15 @@
     margin-right: 10px;
 }
 
-.plus-icon {
+.title-todo {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .plus-icon {
     font-size: 24px;
-}
+    cursor: pointer;
+    vertical-align: middle;
+    color: #EF2B7C;
+  }
+  

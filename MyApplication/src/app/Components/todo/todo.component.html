@@ -1,52 +1,59 @@
 <div class="todo-container">
-    <h2 *ngIf="items.length">My Todo List</h2>
-    <div class="row">
-        <div class="col" *ngFor="let item of items; let i = index;">
-            <div class="card" [style.background-color]="getCardColor(i)" style="width: 20rem;">
-                <div class="card-body">
-                    <h3 class="card-title"><b>{{ item.name | titlecase }}</b></h3>
-                    <button class="btn btn-warning card-link" (click)="editItem(i)">Edit</button>
-                    <button class="btn btn-danger card-link" (click)="deleteItem(i)">Delete</button>
-                    <button class="btn btn-info card-link" (click)="moveToInProgress(i)">In Progress</button>
-                </div>
-            </div>
-        </div>
-    </div>
-   
-    <div>
-    <h2 *ngIf="inProgressItems.length" style="padding-top: 0.5rem">In Progress</h2>
+  <h2 *ngIf="items.length">My Todo List</h2>
   <div class="row">
-    <div class="col" *ngFor="let item of inProgressItems; let i = index;">
-      <div class="card" [style.background-color]="getCardColor(i)" style="width: 18rem;">
-        <div class="card-body">
-          <h3 class="card-title"><b>{{ item.name }}</b></h3>
-          <button class="btn btn-success card-link" (click)="moveToCompleted(i)">Move to Completed</button>
-          <button class="btn btn-danger card-link" (click)="deleteInProgressItem(i)">Delete</button>
-        </div>
+      <div class="col" *ngFor="let item of items; let i = index;">
+          <div class="card" [style.background-color]="getCardColor(i)" style="width: 20rem;">
+              <div class="card-body">
+                <span class="timestamp">Created {{ item.created | date:'MMMM d, y \'at\' h:mm a' }}</span>
+                  <h3 class="card-title"><b>{{ item.name | titlecase }}</b></h3>
+                  <button class="btn btn-warning card-link" (click)="editItem(i)">Edit</button>
+                  <button class="btn btn-danger card-link" (click)="deleteItem(i)">Delete</button>
+                  <button class="btn btn-info card-link" (click)="moveToInProgress(i)">In Progress</button>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
-</div>
-
-<div>
-  <h2 *ngIf="completedItems.length" style="margin-top: 0.5rem">Completed</h2>
-  <div class="row">
-    <div class="col" *ngFor="let item of completedItems; let i = index;">
-      <div class="card" [style.background-color]="getCardColor(i)" style="width: 18rem;">
-        <div class="card-body">
-          <h3 class="card-title"><b>{{ item.name }}</b></h3>
-          <!-- <button class="btn btn-danger card-link" (click)="deleteCompletedItem(i)">Delete</button> -->
-        </div>
+ 
+  <div>
+      <h2 *ngIf="inProgressItems.length" style="padding-top: 0.5rem">In Progress</h2>
+      <div class="row">
+          <div class="col" *ngFor="let item of inProgressItems; let i = index;">
+              <div class="card" [style.background-color]="getCardColor(i)" style="width: 18rem;">
+                  <div class="card-body">
+                    <span class="timestamp">In Progress: {{ item.inProgress | date:'MMMM d, y \'at\' h:mm a' }}</span>
+                      <h3 class="card-title"><b>{{ item.name }}</b></h3>
+                      <div class="button-cont">
+                      <label class="check-action">
+                        <input type="checkbox" (change)="onCheckboxChange(i)" style="margin: 0.5rem;">
+                        <b>Completed</b>
+                    </label>                      
+                    <button class="btn btn-danger card-link action-buttons" (click)="deleteInProgressItem(i)">Delete</button>
+                  </div>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
-</div>
 
-    <div [style.margin-top]="(items.length || inProgressItems.length || completedItems.length) ? '1rem' : '0'">
-        <span class="title-todo">Your todos</span>
-        <span style="border: 1px solid black; border-radius: 5px; margin: 5px;"><button mat-icon-button
-                (click)="openDialog()">
-                <mat-icon class="plus-icon">add</mat-icon>
-            </button></span>
-    </div>
+  <div>
+      <h2 *ngIf="completedItems.length" style="margin-top: 0.5rem">Completed</h2>
+      <div class="row">
+          <div class="col" *ngFor="let item of completedItems; let i = index;">
+              <div class="card" [style.background-color]="getCardColor(i)" style="width: 18rem;">
+                  <div class="card-body">
+                    <span class="timestamp">Completed: {{ item.completed | date:'MMMM d, y \'at\' h:mm a' }}</span>
+                      <h3 class="card-title"><b>{{ item.name }}</b></h3>
+                      <button class="btn btn-danger card-link" (click)="deleteCompletedItem(i)">Delete</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div [style.margin-top]="(items.length || inProgressItems.length || completedItems.length) ? '1rem' : '0'">
+      <span class="title-todo">Your todos
+            <span class="material-icons plus-icon" (click)="openDialog()">note_add
+              </span>
+            </span>
+  </div>
 </div>

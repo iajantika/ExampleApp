@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TodoDialogComponent } from '../todo-dialog/todo-dialog.component';
+import { TodoItem } from '../../Interfaces/todo-item';
 
 @Component({
   selector: 'app-todo',
@@ -21,12 +22,12 @@ import { TodoDialogComponent } from '../todo-dialog/todo-dialog.component';
   styleUrl: './todo.component.scss'
 })
 export class TodoComponent {
-  items: { name: string }[] = [];
+  items: TodoItem[] = [];
   currentItemIndex: number = -1;
   currentItemName: string = '';
   isEditing: boolean = false;
-  inProgressItems: { name: string }[] = [];
-  completedItems: { name: string }[] = [];
+  inProgressItems: TodoItem[] = [];
+  completedItems: TodoItem[] = [];
 
   colors: string[] = ['#FFCDD2', '#C8E6C9', '#BBDEFB', '#FFF9C4', '#D1C4E9'];
 
@@ -49,9 +50,12 @@ export class TodoComponent {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
+      if (result && this.isValidInput(result)) {
         this.currentItemName = result;
         this.addItem();
+      }
+      else if(result && !this.isValidInput(result)) {
+        alert('Special characters are not allowed.');
       }
     });
   }
@@ -60,7 +64,7 @@ export class TodoComponent {
     if (this.isEditing) {
       this.service.updateItems(this.currentItemIndex, this.currentItemName);
     } else {
-      this.service.addItems({ name: this.currentItemName });
+      this.service.addItems({ name: this.currentItemName});
     }
     this.resetForm();
   }
@@ -97,5 +101,14 @@ export class TodoComponent {
 
   deleteCompletedItem(index: number): void {
     this.service.deleteCompletedItem(index);
+  }
+
+  isValidInput(input: string): boolean {
+    const regex = /^[a-zA-Z0-9 ]*$/;
+    return regex.test(input);
+  }
+
+  onCheckboxChange(index: number): void {
+    this.moveToCompleted(index);
   }
 }
