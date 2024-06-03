@@ -30,11 +30,12 @@ export class TodoComponent {
 
   colors: string[] = ['#FFCDD2', '#C8E6C9', '#BBDEFB', '#FFF9C4', '#D1C4E9'];
 
-  constructor(private service: TodoService, public dialog: MatDialog) { 
-  }
+  constructor(private service: TodoService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.service.items$.subscribe((items) => this.items = items);
+    this.service.inProgress$.subscribe((items) => this.inProgressItems = items);
+    this.service.completed$.subscribe((items) => this.completedItems = items);
   }
 
   openDialog(item: any = null, index: number | null = null): void {
@@ -57,7 +58,7 @@ export class TodoComponent {
 
   addItem(): void {
     if (this.isEditing) {
-      this.service.udpateItems(this.currentItemIndex, this.currentItemName);
+      this.service.updateItems(this.currentItemIndex, this.currentItemName);
     } else {
       this.service.addItems({ name: this.currentItemName });
     }
@@ -83,18 +84,18 @@ export class TodoComponent {
   }
 
   moveToInProgress(index: number): void {
-    const item = this.items.splice(index, 1)[0];
-    this.inProgressItems.push(item);
-
+    this.service.moveToInProgress(index);
   }
 
   deleteInProgressItem(index: number): void {
-    this.inProgressItems.splice(index, 1);
+    this.service.deleteInProgressItem(index);
   }
 
   moveToCompleted(index: number): void {
-    const item = this.inProgressItems.splice(index, 1)[0];
-    this.completedItems.push(item);
+    this.service.moveToCompleted(index);
   }
 
+  deleteCompletedItem(index: number): void {
+    this.service.deleteCompletedItem(index);
+  }
 }
