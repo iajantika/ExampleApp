@@ -40,6 +40,18 @@ import { MatInput, MatInputModule } from '@angular/material/input';
     @media (max-width: 600px) {
       width: 350px;
     }
+    @media only screen 
+    and (device-width: 414px) 
+    and (device-height: 896px) 
+    and (-webkit-device-pixel-ratio: 2) {
+      width: 350px;
+}
+@media only screen
+     and (width: 390px) 
+     and (device-height: 844px)
+     and (-webkit-device-pixel-ratio: 3) {
+      width: 500px;
+}
 }
     mat-form-field {
       width: 500px;
